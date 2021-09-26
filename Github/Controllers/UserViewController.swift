@@ -44,7 +44,19 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = UserTableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UserCell
         cell.update(user: thisUser)
         return cell
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showDetails", sender: indexPath.row)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetails" {
+            let viewController = segue.destination as! DetailViewController
+            let selectedRow = sender as? Int
+            let user = users[selectedRow!]
+            viewController.user = user
+        }
     }
 
 }

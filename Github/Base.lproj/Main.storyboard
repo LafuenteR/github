@@ -44,11 +44,28 @@
                     <navigationItem key="navigationItem" id="mvN-U6-VMM"/>
                     <connections>
                         <outlet property="UserTableView" destination="cXb-tm-l6E" id="1Oy-Eg-BnK"/>
+                        <segue destination="vqZ-TR-15k" kind="show" identifier="showDetails" id="KPI-oL-zF4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="937.68115942028987" y="75"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="9Cf-9J-iXq">
+            <objects>
+                <viewController id="vqZ-TR-15k" customClass="DetailViewController" customModule="Github" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Chc-0e-otj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Nue-bf-o3X"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AKi-uo-KPt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ha8-Wj-AGi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1793" y="75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yn7-hv-q4R">

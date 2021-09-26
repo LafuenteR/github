@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F626FF6C7900C683E7 /* AppDelegate.swift */; };
 		BCB317F926FF6C7900C683E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */; };
-		BCB317FB26FF6C7900C683E7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317FA26FF6C7900C683E7 /* ViewController.swift */; };
 		BCB317FE26FF6C7900C683E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB317FC26FF6C7900C683E7 /* Main.storyboard */; };
 		BCB3180026FF6C8600C683E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB317FF26FF6C8600C683E7 /* Assets.xcassets */; };
 		BCB3180326FF6C8600C683E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB3180126FF6C8600C683E7 /* LaunchScreen.storyboard */; };
 		BCB3180B26FF6F8200C683E7 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3180A26FF6F8200C683E7 /* UserViewController.swift */; };
 		BCB3180E26FF714200C683E7 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3180C26FF714200C683E7 /* UserCell.swift */; };
 		BCB3180F26FF714200C683E7 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB3180D26FF714200C683E7 /* UserCell.xib */; };
+		BCB318122700B7C300C683E7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB318112700B7C300C683E7 /* DetailViewController.swift */; };
 		CB0D0380FA94D4CCA39ED823 /* Pods_Github.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308B90AFDF525CF57AFCA6E0 /* Pods_Github.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +25,6 @@
 		BCB317F326FF6C7900C683E7 /* Github.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Github.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB317F626FF6C7900C683E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BCB317FA26FF6C7900C683E7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BCB317FD26FF6C7900C683E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BCB317FF26FF6C8600C683E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCB3180226FF6C8600C683E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -33,6 +32,7 @@
 		BCB3180A26FF6F8200C683E7 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		BCB3180C26FF714200C683E7 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		BCB3180D26FF714200C683E7 /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
+		BCB318112700B7C300C683E7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F4642D056FA398BE115202B1 /* Pods-Github.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github.release.xcconfig"; path = "Target Support Files/Pods-Github/Pods-Github.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,10 +88,9 @@
 			children = (
 				BCB317F626FF6C7900C683E7 /* AppDelegate.swift */,
 				BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */,
-				BCB317FA26FF6C7900C683E7 /* ViewController.swift */,
 				BCB317FC26FF6C7900C683E7 /* Main.storyboard */,
+				BCB318132700BA5300C683E7 /* Controllers */,
 				BCB3181026FF714E00C683E7 /* UserCell */,
-				BCB3180A26FF6F8200C683E7 /* UserViewController.swift */,
 				BCB317FF26FF6C8600C683E7 /* Assets.xcassets */,
 				BCB3180126FF6C8600C683E7 /* LaunchScreen.storyboard */,
 				BCB3180426FF6C8600C683E7 /* Info.plist */,
@@ -106,6 +105,15 @@
 				BCB3180D26FF714200C683E7 /* UserCell.xib */,
 			);
 			path = UserCell;
+			sourceTree = "<group>";
+		};
+		BCB318132700BA5300C683E7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BCB318112700B7C300C683E7 /* DetailViewController.swift */,
+				BCB3180A26FF6F8200C683E7 /* UserViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,9 +213,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB317FB26FF6C7900C683E7 /* ViewController.swift in Sources */,
 				BCB3180B26FF6F8200C683E7 /* UserViewController.swift in Sources */,
 				BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */,
+				BCB318122700B7C300C683E7 /* DetailViewController.swift in Sources */,
 				BCB3180E26FF714200C683E7 /* UserCell.swift in Sources */,
 				BCB317F926FF6C7900C683E7 /* SceneDelegate.swift in Sources */,
 			);
