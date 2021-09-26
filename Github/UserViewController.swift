@@ -7,23 +7,51 @@
 
 import UIKit
 
-class UserViewController: UIViewController {
-
+class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var users = [User]()
+    @IBOutlet weak var UserTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        UserTableView.delegate = self
+        UserTableView.dataSource = self
+        UserTableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
+        let urlString = "https://api.github.com/users?since=0"
+        
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+                parseJson(json: data)
+            }
+        }
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func parseJson(json: Data) {
+        let decoder = JSONDecoder()
+        if let jsonUsers = try? decoder.decode([User].self, from: json) {
+            users = jsonUsers
+        }
     }
-    */
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let thisUser = users[indexPath.row]
+        let cell = UserTableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UserCell
+        cell.update(user: thisUser)
+        return cell
+        
+    }
 
+}
+
+struct User: Codable {
+    var id: Int
+    var login: String
+    var avatar_url: String
+    var type: String
 }
