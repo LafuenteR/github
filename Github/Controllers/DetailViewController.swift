@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailViewController: UIViewController {
     
-    var user: User?
+    var user: Users?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = user?.login
-        // Do any additional setup after loading the view.
+        self.title = user?.name
+        let urlString = "\(GlobalVariable.getUserProfile)\((user?.login)!)"
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+//                users = parseJson(json: data)
+            }
+        }
     }
     
 

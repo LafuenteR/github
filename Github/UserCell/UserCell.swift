@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class UserCell: UITableViewCell {
 
@@ -23,9 +24,9 @@ class UserCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func update(user: User) {
+    func update(user: Users) {
         usernameLabel.text = user.login
-        userAvatar.loadImageWithURL(URL(string: user.avatar_url)!)
+        userAvatar.loadImageWithURL(URL(string: user.avatar_url!)!)
     }
     
 }
