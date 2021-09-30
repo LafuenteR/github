@@ -13,6 +13,7 @@ class UserCell: UITableViewCell {
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
+    @IBOutlet weak var notesImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,9 +25,20 @@ class UserCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
+        userAvatar.clipsToBounds = true
+    }
+    
     func update(user: Users) {
         usernameLabel.text = user.login
         userAvatar.loadImageWithURL(URL(string: user.avatar_url!)!)
+        let thisNotes = user.notes ?? ""
+        if thisNotes != "" {
+            notesImageView.isHidden = false
+        } else {
+            notesImageView.isHidden = true
+        }
     }
     
 }

@@ -8,19 +8,19 @@
 import UIKit
 import CoreData
 
-class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-//    var users = [User]()
+class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+
     var users:[Users]?
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @IBOutlet weak var UserTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UserTableView.delegate = self
         UserTableView.dataSource = self
         UserTableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
+        searchBar.delegate = self
         
         let urlString = GlobalVariable.getUsersApi
         var thisUsers = [User]()
@@ -46,6 +46,31 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        DispatchQueue.main.async {
+            if searchText.count > 0 {
+                do {
+                    let request: NSFetchRequest<Users> = Users.fetchRequest()
+                    request.predicate = NSPredicate(format: "login CONTAINS[C] %@", searchText)
+                    self.users = try self.context.fetch(request)
+                    self.UserTableView.reloadData()
+                } catch {
+                    print("Error \(error)")
+                }
+            } else {
+                do {
+                    self.users = try self.context.fetch(Users.fetchRequest())
+                    self.UserTableView.reloadData()
+                } catch {
+                    print("Error \(error)")
+                }
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         do {
             users = try context.fetch(Users.fetchRequest())
             UserTableView.reloadData()
@@ -104,32 +129,18 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.performSegue(withIdentifier: "showDetails", sender: indexPath.row)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50.0
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails" {
             let viewController = segue.destination as! DetailViewController
             let selectedRow = sender as? Int
             let user = users![selectedRow!]
-            viewController.user = user
+            let thiUser = Profile(id: Int(user.id), login: user.login!, avatar_url: user.avatar_url!, type: user.type!, following: Int(user.following), followers: Int(user.followers), bio: user.bio, name: user.name, company: user.company, blog: user.blog, notes: user.notes)
+            viewController.user = thiUser
         }
     }
 
-}
-
-struct User: Codable {
-    var id: Int
-    var login: String
-    var avatar_url: String
-}
-
-struct Profile: Codable {
-    var id: Int
-    var login: String
-    var avatar_url: String
-    var type: String
-    var following: Int
-    var followers: Int
-    var bio: String?
-    var name: String?
-    var company: String?
-    var blog: String?
 }
