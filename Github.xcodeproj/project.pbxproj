@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC5EB2B42708963B000CCC24 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2B32708963B000CCC24 /* ImageService.swift */; };
+		BC5EB2B627089F5B000CCC24 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2B527089F5B000CCC24 /* Extensions.swift */; };
 		BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F626FF6C7900C683E7 /* AppDelegate.swift */; };
 		BCB317F926FF6C7900C683E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */; };
 		BCB317FE26FF6C7900C683E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB317FC26FF6C7900C683E7 /* Main.storyboard */; };
@@ -16,7 +18,6 @@
 		BCB3180E26FF714200C683E7 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3180C26FF714200C683E7 /* UserCell.swift */; };
 		BCB3180F26FF714200C683E7 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB3180D26FF714200C683E7 /* UserCell.xib */; };
 		BCB318122700B7C300C683E7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB318112700B7C300C683E7 /* DetailViewController.swift */; };
-		BCB318172700BCF000C683E7 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB318162700BCF000C683E7 /* UIViewControllerExtension.swift */; };
 		BCB318192701F45000C683E7 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB318182701F45000C683E7 /* GlobalVariable.swift */; };
 		BCB3181C27034EB300C683E7 /* Github.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCB3181A27034EB300C683E7 /* Github.xcdatamodeld */; };
 		CB0D0380FA94D4CCA39ED823 /* Pods_Github.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308B90AFDF525CF57AFCA6E0 /* Pods_Github.framework */; };
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		308B90AFDF525CF57AFCA6E0 /* Pods_Github.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Github.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		522CA4536BF22F0BD0FEDAD1 /* Pods-Github.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github.debug.xcconfig"; path = "Target Support Files/Pods-Github/Pods-Github.debug.xcconfig"; sourceTree = "<group>"; };
+		BC5EB2B32708963B000CCC24 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		BC5EB2B527089F5B000CCC24 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCB317F326FF6C7900C683E7 /* Github.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Github.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB317F626FF6C7900C683E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +39,6 @@
 		BCB3180C26FF714200C683E7 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		BCB3180D26FF714200C683E7 /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		BCB318112700B7C300C683E7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		BCB318162700BCF000C683E7 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtension.swift; path = Controllers/UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		BCB318182701F45000C683E7 /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		BCB3181B27034EB300C683E7 /* Github.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Github.xcdatamodel; sourceTree = "<group>"; };
 		F4642D056FA398BE115202B1 /* Pods-Github.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github.release.xcconfig"; path = "Target Support Files/Pods-Github/Pods-Github.release.xcconfig"; sourceTree = "<group>"; };
@@ -92,11 +94,12 @@
 		BCB317F526FF6C7900C683E7 /* Github */ = {
 			isa = PBXGroup;
 			children = (
-				BCB318162700BCF000C683E7 /* UIViewControllerExtension.swift */,
+				BC5EB2B527089F5B000CCC24 /* Extensions.swift */,
 				BCB317F626FF6C7900C683E7 /* AppDelegate.swift */,
 				BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */,
 				BCB317FC26FF6C7900C683E7 /* Main.storyboard */,
 				BCB318182701F45000C683E7 /* GlobalVariable.swift */,
+				BC5EB2B32708963B000CCC24 /* ImageService.swift */,
 				BCB318132700BA5300C683E7 /* Controllers */,
 				BCB3181026FF714E00C683E7 /* UserCell */,
 				BCB317FF26FF6C8600C683E7 /* Assets.xcassets */,
@@ -224,8 +227,9 @@
 			files = (
 				BCB318192701F45000C683E7 /* GlobalVariable.swift in Sources */,
 				BCB3180B26FF6F8200C683E7 /* UserViewController.swift in Sources */,
+				BC5EB2B42708963B000CCC24 /* ImageService.swift in Sources */,
 				BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */,
-				BCB318172700BCF000C683E7 /* UIViewControllerExtension.swift in Sources */,
+				BC5EB2B627089F5B000CCC24 /* Extensions.swift in Sources */,
 				BCB318122700B7C300C683E7 /* DetailViewController.swift in Sources */,
 				BCB3180E26FF714200C683E7 /* UserCell.swift in Sources */,
 				BCB3181C27034EB300C683E7 /* Github.xcdatamodeld in Sources */,
@@ -378,8 +382,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8P46ZX55J8;
 				INFOPLIST_FILE = Github/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -401,8 +405,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8P46ZX55J8;
 				INFOPLIST_FILE = Github/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

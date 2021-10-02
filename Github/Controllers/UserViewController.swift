@@ -72,8 +72,10 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         do {
-            users = try context.fetch(Users.fetchRequest())
-            UserTableView.reloadData()
+            if searchBar.text == "" {
+                users = try context.fetch(Users.fetchRequest())
+                UserTableView.reloadData()
+            }
         } catch {
             print("Error \(error)")
         }
@@ -121,7 +123,8 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let thisUser = users![indexPath.row]
         let cell = UserTableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UserCell
-        cell.update(user: thisUser)
+        let thisIndex = indexPath.row + 1
+        cell.update(user: thisUser, index: thisIndex)
         return cell
     }
     
@@ -140,6 +143,8 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             let user = users![selectedRow!]
             let thiUser = Profile(id: Int(user.id), login: user.login!, avatar_url: user.avatar_url!, type: user.type!, following: Int(user.following), followers: Int(user.followers), bio: user.bio, name: user.name, company: user.company, blog: user.blog, notes: user.notes)
             viewController.user = thiUser
+            let index = selectedRow! + 1
+            viewController.imageInverted = index.invertImage()
         }
     }
 

@@ -16,8 +16,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var userInfoTextView: UITextView!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveBtnUI: UIButton!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var user: Profile!
+    var imageInverted: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,13 @@ class DetailViewController: UIViewController {
         notesTextView.layer.borderWidth = 1.0
         saveBtnUI.layer.borderColor = UIColor.black.cgColor
         saveBtnUI.layer.borderWidth = 1.0
-        userAvatar.loadImageWithURL(URL(string: (user.avatar_url))!)
+        ImageService.getImage(url: URL(string: user.avatar_url)!, completion: { image in
+            if self.imageInverted {
+                self.userAvatar.image = image?.invertedImage()
+            } else {
+                self.userAvatar.image = image
+            }
+        })
     }
 
     @IBAction func saveNotes(_ sender: Any) {
