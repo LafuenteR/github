@@ -32,7 +32,7 @@ extension UIImage {
 }
 
 extension Int {
-    func invertImage() -> Bool {
+    func divisibleByFour() -> Bool {
         return self % 4 == 0 ? true : false
     }
 }

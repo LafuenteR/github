@@ -33,7 +33,7 @@ class UserCell: UITableViewCell {
     func update(user: Users, index: Int) {
         usernameLabel.text = user.login
         ImageService.getImage(url: URL(string: user.avatar_url!)!, completion: { image in
-            if index.invertImage() {
+            if index.divisibleByFour() {
                 self.userAvatar.image = image?.invertedImage()
             } else {
                 self.userAvatar.image = image

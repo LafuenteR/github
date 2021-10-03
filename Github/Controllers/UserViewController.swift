@@ -144,7 +144,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             let thiUser = Profile(id: Int(user.id), login: user.login!, avatar_url: user.avatar_url!, type: user.type!, following: Int(user.following), followers: Int(user.followers), bio: user.bio, name: user.name, company: user.company, blog: user.blog, notes: user.notes)
             viewController.user = thiUser
             let index = selectedRow! + 1
-            viewController.imageInverted = index.invertImage()
+            viewController.imageInverted = index.divisibleByFour()
         }
     }
 
