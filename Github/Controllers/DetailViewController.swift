@@ -28,9 +28,9 @@ class DetailViewController: UIViewController {
     
     func loadController() {
         UIupdate()
-        followersLabel.text = "followers: \(user.followers)"
-        followingLabel.text = "following: \(user.following)"
-        userInfoTextView.text = "name: \(user.name ?? "")\ncompany: \(user.company ?? "N/A") \nblog: \((user.blog ?? "N/A"))"
+        followersLabel.text = "\(Translation.followers) \(user.followers)"
+        followingLabel.text = "\(Translation.following) \(user.following)"
+        userInfoTextView.text = "\(Translation.name) \(user.name ?? "")\n\(Translation.company) \(user.company ?? Translation.na) \n\(Translation.blog) \((user.blog ?? Translation.na))"
         notesTextView.text = user.notes
         updateUser(isUpdateNotes: false)
         updateBorderWidth()

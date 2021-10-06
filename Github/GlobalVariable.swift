@@ -32,3 +32,12 @@ struct Profile: Codable {
     var isSeen: Bool?
 }
 
+struct Translation {
+    static var followers = "followers:"
+    static var following = "following:"
+    static var company = "company:"
+    static var na = "N/A"
+    static var blog = "blog:"
+    static var name = "name:"
+}
+
