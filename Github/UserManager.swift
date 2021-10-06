@@ -90,4 +90,29 @@ class UserManager {
             print("Error \(error)")
         }
     }
+    
+    func parseJson(json: Data) -> [User] {
+        let decoder = JSONDecoder()
+        var users = [User]()
+        if let jsonUsers = try? decoder.decode([User].self, from: json) {
+            users = jsonUsers
+            return users
+        }
+        return users
+    }
+    
+    func decodeUser(user: User) {
+        let urlString = "\(GlobalVariable.getUserProfile)\(user.login)"
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+                let decoder = JSONDecoder()
+                if let userProfile = try? decoder.decode(Profile.self, from: data) {
+                    print(userProfile)
+                    if !UserManager.shared.userExist(id: userProfile.id) {
+                        UserManager.shared.createUser(profile: userProfile)
+                    }
+                }
+            }
+        }
+    }
 }

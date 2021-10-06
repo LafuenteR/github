@@ -8,19 +8,6 @@
 import Foundation
 import UIKit
 
-extension UIViewController {
-    
-    func parseJson(json: Data) -> [User] {
-        let decoder = JSONDecoder()
-        var users = [User]()
-        if let jsonUsers = try? decoder.decode([User].self, from: json) {
-            users = jsonUsers
-            return users
-        }
-        return users
-    }
-}
-
 extension UIImage {
     func invertedImage() -> UIImage {
         let theImage = self

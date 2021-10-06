@@ -52,7 +52,7 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
         var thisUsers = [User]()
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
-                thisUsers = parseJson(json: data)
+                thisUsers = UserManager.shared.parseJson(json: data)
             } else {
                 makeTableViewScrollable()
             }
@@ -61,19 +61,7 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
         }
         
         for user in thisUsers {
-            let urlString = "\(GlobalVariable.getUserProfile)\(user.login)"
-            print(urlString)
-            if let url = URL(string: urlString) {
-                if let data = try? Data(contentsOf: url) {
-                    let decoder = JSONDecoder()
-                    if let userProfile = try? decoder.decode(Profile.self, from: data) {
-                        print(userProfile)
-                        if !UserManager.shared.userExist(id: userProfile.id) {
-                            UserManager.shared.createUser(profile: userProfile)
-                        }
-                    }
-                }
-            }
+            UserManager.shared.decodeUser(user: user)
             if user.id == thisUsers.last!.id {
                 pagination = user.id
                 users = UserManager.shared.fetchUsers()
