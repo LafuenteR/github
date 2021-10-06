@@ -6,5 +6,6 @@ target 'Github' do
   use_frameworks!
 
   # Pods for Github
+  pod 'SkeletonView'
 
 end

@@ -32,6 +32,12 @@ class UserCell: UITableViewCell {
     
     func update(user: Users, index: Int) {
         usernameLabel.text = user.login
+        if user.isSeen {
+            updateColor(updateTextColor: .gray)
+        } else {
+//            updateColor(updateTextColor: .black)
+            darkMode()
+        }
         ImageService.getImage(url: URL(string: user.avatar_url!)!, completion: { image in
             if index.divisibleByFour() {
                 self.userAvatar.image = image?.invertedImage()
@@ -45,5 +51,19 @@ class UserCell: UITableViewCell {
         } else {
             notesImageView.isHidden = true
         }
+    }
+    
+    func darkMode() {
+        if traitCollection.userInterfaceStyle == .dark {
+            updateColor(updateTextColor: .white)
+        } else {
+            updateColor(updateTextColor: .black)
+        }
+    }
+    
+    func updateColor(updateTextColor: UIColor) {
+        usernameLabel.textColor = updateTextColor
+        detailsLabel.textColor = updateTextColor
+        notesImageView.tintColor = updateTextColor
     }
 }

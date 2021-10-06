@@ -10,6 +10,7 @@
 		BC5EB2B42708963B000CCC24 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2B32708963B000CCC24 /* ImageService.swift */; };
 		BC5EB2B627089F5B000CCC24 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2B527089F5B000CCC24 /* Extensions.swift */; };
 		BC5EB2BE2708AFE2000CCC24 /* GithubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2BD2708AFE2000CCC24 /* GithubTests.swift */; };
+		BC5EB2C6270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2C5270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift */; };
 		BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F626FF6C7900C683E7 /* AppDelegate.swift */; };
 		BCB317F926FF6C7900C683E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */; };
 		BCB317FE26FF6C7900C683E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB317FC26FF6C7900C683E7 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		BC5EB2BB2708AFE2000CCC24 /* GithubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5EB2BD2708AFE2000CCC24 /* GithubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubTests.swift; sourceTree = "<group>"; };
 		BC5EB2BF2708AFE2000CCC24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC5EB2C5270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewControllerTableViewExtension.swift; sourceTree = "<group>"; };
 		BCB317F326FF6C7900C683E7 /* Github.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Github.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB317F626FF6C7900C683E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,15 @@
 			path = GithubTests;
 			sourceTree = "<group>";
 		};
+		BC5EB2C7270C6CB0000CCC24 /* UserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BCB3180A26FF6F8200C683E7 /* UserViewController.swift */,
+				BC5EB2C5270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift */,
+			);
+			path = UserViewController;
+			sourceTree = "<group>";
+		};
 		BCB317EA26FF6C7900C683E7 = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB318112700B7C300C683E7 /* DetailViewController.swift */,
-				BCB3180A26FF6F8200C683E7 /* UserViewController.swift */,
+				BC5EB2C7270C6CB0000CCC24 /* UserViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -189,6 +200,7 @@
 				BCB317EF26FF6C7900C683E7 /* Sources */,
 				BCB317F026FF6C7900C683E7 /* Frameworks */,
 				BCB317F126FF6C7900C683E7 /* Resources */,
+				0EA0172FFB8D98ECB7F04275 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,6 +270,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0EA0172FFB8D98ECB7F04275 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Github/Pods-Github-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Github/Pods-Github-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Github/Pods-Github-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7E1E590E0EE5C7240325007D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB318192701F45000C683E7 /* GlobalVariable.swift in Sources */,
+				BC5EB2C6270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift in Sources */,
 				BCB3180B26FF6F8200C683E7 /* UserViewController.swift in Sources */,
 				BC5EB2B42708963B000CCC24 /* ImageService.swift in Sources */,
 				BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */,

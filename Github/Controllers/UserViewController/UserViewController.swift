@@ -7,27 +7,57 @@
 
 import UIKit
 import CoreData
+import SkeletonView
 
-class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate {
 
     var users:[Users]?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var pagination = Int()
+    var isPaginate = true
     @IBOutlet weak var UserTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadController()
+    }
+    
+    func loadController() {
         UserTableView.delegate = self
         UserTableView.dataSource = self
+        UserTableView.rowHeight = 50.0
+        UserTableView.estimatedRowHeight = 50.0
         UserTableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
         searchBar.delegate = self
+        UserTableView.isSkeletonable = true
+        UserTableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .gray), animation: nil, transition: .crossDissolve(0.25))
         
-        let urlString = GlobalVariable.getUsersApi
+        do {
+            users = try context.fetch(Users.fetchRequest())
+            pagination = users!.count == 0 ? users!.count : Int((users?.last?.id)!)
+            
+        } catch {
+            print("Error \(error)")
+        }
+        
+        if users!.count == 0 {
+            getUsers()
+        }
+    }
+    
+    func getUsers() {
+        let urlString = "\(GlobalVariable.getUsersApi)\(pagination)"
+        print(urlString)
         var thisUsers = [User]()
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 thisUsers = parseJson(json: data)
+            } else {
+                makeTableViewScrollable()
             }
+        } else {
+            makeTableViewScrollable()
         }
         
         for user in thisUsers {
@@ -44,8 +74,26 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
             }
+            if user.id == thisUsers.last!.id {
+                pagination = user.id
+                do {
+                    users = try context.fetch(Users.fetchRequest())
+                    
+                } catch {
+                    print("Error \(error)")
+                }
+                makeTableViewScrollable()
+            }
         }
-        
+    }
+    
+    func makeTableViewScrollable() {
+        isPaginate = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            self.UserTableView.tableFooterView = nil
+//            self.UserTableView.isScrollEnabled = true
+            self.UserTableView.reloadData()
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -53,7 +101,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             if searchText.count > 0 {
                 do {
                     let request: NSFetchRequest<Users> = Users.fetchRequest()
-                    request.predicate = NSPredicate(format: "login CONTAINS[C] %@", searchText)
+                    request.predicate = NSPredicate(format: "(login CONTAINS[C] %@) OR (notes CONTAINS[C] %@)", searchText, searchText)
                     self.users = try self.context.fetch(request)
                     self.UserTableView.reloadData()
                 } catch {
@@ -74,11 +122,20 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         do {
             if searchBar.text == "" {
                 users = try context.fetch(Users.fetchRequest())
-                UserTableView.reloadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                    self.UserTableView.stopSkeletonAnimation()
+                    self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                    self.UserTableView.reloadData()
+                    
+                })
             }
         } catch {
             print("Error \(error)")
         }
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "UserCell"
     }
     
     func saveUser(profile: Profile) {
@@ -86,13 +143,13 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         user.id = Int64(profile.id)
         user.login = profile.login
         user.avatar_url = profile.avatar_url
-        user.type = profile.type
         user.following = Int64(profile.following)
         user.followers = Int64(profile.followers)
         user.bio = profile.bio
         user.name = profile.name
         user.company = profile.company
         user.blog = profile.blog
+        user.isSeen = false
         do {
             try self.context.save()
         } catch {
@@ -116,24 +173,31 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         return false
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users!.count
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > ((UserTableView.contentSize.height + 50) - scrollView.frame.size.height) {
+            print("isPaginate",isPaginate)
+            if isPaginate {
+                isPaginate = false
+                self.UserTableView.tableFooterView = createSpinner()
+//                self.UserTableView.isScrollEnabled = false
+                getUsers()
+            }
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let thisUser = users![indexPath.row]
-        let cell = UserTableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UserCell
-        let thisIndex = indexPath.row + 1
-        cell.update(user: thisUser, index: thisIndex)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "showDetails", sender: indexPath.row)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+    func createSpinner() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 50))
+        let spinner = UIActivityIndicatorView()
+        spinner.center = footerView.center
+        if traitCollection.userInterfaceStyle == .dark {
+            spinner.color = .white
+        } else {
+            spinner.color = .black
+        }
+        footerView.addSubview(spinner)
+        spinner.startAnimating()
+        return footerView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -141,7 +205,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             let viewController = segue.destination as! DetailViewController
             let selectedRow = sender as? Int
             let user = users![selectedRow!]
-            let thiUser = Profile(id: Int(user.id), login: user.login!, avatar_url: user.avatar_url!, type: user.type!, following: Int(user.following), followers: Int(user.followers), bio: user.bio, name: user.name, company: user.company, blog: user.blog, notes: user.notes)
+            let thiUser = Profile(id: Int(user.id), login: user.login!, avatar_url: user.avatar_url!, following: Int(user.following), followers: Int(user.followers), bio: user.bio, name: user.name, company: user.company, blog: user.blog, notes: user.notes, isSeen: user.isSeen)
             viewController.user = thiUser
             let index = selectedRow! + 1
             viewController.imageInverted = index.divisibleByFour()

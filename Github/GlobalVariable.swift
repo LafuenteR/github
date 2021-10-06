@@ -8,7 +8,7 @@
 import Foundation
 
 struct GlobalVariable {
-    static var getUsersApi = "https://api.github.com/users?since=0"
+    static var getUsersApi = "https://api.github.com/users?since="
     static var getUserProfile = "https://api.github.com/users/"
 }
 
@@ -22,7 +22,6 @@ struct Profile: Codable {
     var id: Int
     var login: String
     var avatar_url: String
-    var type: String
     var following: Int
     var followers: Int
     var bio: String?
@@ -30,5 +29,6 @@ struct Profile: Codable {
     var company: String?
     var blog: String?
     var notes: String?
+    var isSeen: Bool?
 }
 
