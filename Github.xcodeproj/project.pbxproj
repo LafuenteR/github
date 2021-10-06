@@ -11,6 +11,8 @@
 		BC5EB2B627089F5B000CCC24 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2B527089F5B000CCC24 /* Extensions.swift */; };
 		BC5EB2BE2708AFE2000CCC24 /* GithubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2BD2708AFE2000CCC24 /* GithubTests.swift */; };
 		BC5EB2C6270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2C5270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift */; };
+		BC5EB2C9270DDAEF000CCC24 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2C8270DDAEF000CCC24 /* CoreDataStack.swift */; };
+		BC5EB2CB270DEAE9000CCC24 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5EB2CA270DEAE9000CCC24 /* UserManager.swift */; };
 		BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F626FF6C7900C683E7 /* AppDelegate.swift */; };
 		BCB317F926FF6C7900C683E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */; };
 		BCB317FE26FF6C7900C683E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB317FC26FF6C7900C683E7 /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 		BC5EB2BD2708AFE2000CCC24 /* GithubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubTests.swift; sourceTree = "<group>"; };
 		BC5EB2BF2708AFE2000CCC24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5EB2C5270C6C5A000CCC24 /* UserViewControllerTableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewControllerTableViewExtension.swift; sourceTree = "<group>"; };
+		BC5EB2C8270DDAEF000CCC24 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		BC5EB2CA270DEAE9000CCC24 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BCB317F326FF6C7900C683E7 /* Github.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Github.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB317F626FF6C7900C683E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				BCB317F826FF6C7900C683E7 /* SceneDelegate.swift */,
 				BCB317FC26FF6C7900C683E7 /* Main.storyboard */,
 				BCB318182701F45000C683E7 /* GlobalVariable.swift */,
+				BC5EB2CA270DEAE9000CCC24 /* UserManager.swift */,
+				BC5EB2C8270DDAEF000CCC24 /* CoreDataStack.swift */,
 				BC5EB2B527089F5B000CCC24 /* Extensions.swift */,
 				BC5EB2B32708963B000CCC24 /* ImageService.swift */,
 				BCB318132700BA5300C683E7 /* Controllers */,
@@ -330,6 +336,8 @@
 				BC5EB2B42708963B000CCC24 /* ImageService.swift in Sources */,
 				BCB317F726FF6C7900C683E7 /* AppDelegate.swift in Sources */,
 				BC5EB2B627089F5B000CCC24 /* Extensions.swift in Sources */,
+				BC5EB2CB270DEAE9000CCC24 /* UserManager.swift in Sources */,
+				BC5EB2C9270DDAEF000CCC24 /* CoreDataStack.swift in Sources */,
 				BCB318122700B7C300C683E7 /* DetailViewController.swift in Sources */,
 				BCB3180E26FF714200C683E7 /* UserCell.swift in Sources */,
 				BCB3181C27034EB300C683E7 /* Github.xcdatamodeld in Sources */,

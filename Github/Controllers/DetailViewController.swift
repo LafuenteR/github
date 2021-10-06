@@ -17,7 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveBtnUI: UIButton!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = CoreDataStack.shared.mainContext
     var user: Profile!
     var imageInverted: Bool!
 
@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
         followingLabel.text = "\(Translation.following) \(user.following)"
         userInfoTextView.text = "\(Translation.name) \(user.name ?? "")\n\(Translation.company) \(user.company ?? Translation.na) \n\(Translation.blog) \((user.blog ?? Translation.na))"
         notesTextView.text = user.notes
-        updateUser(isUpdateNotes: false)
+        UserManager.shared.updateUser(isUpdateNotes: false, notes: Translation.empty, user: user)
         updateBorderWidth()
         NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -57,28 +57,8 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func saveNotes(_ sender: Any) {
-        updateUser(isUpdateNotes: true)
-    }
-    
-    func updateUser(isUpdateNotes: Bool) {
-        do {
-            let request: NSFetchRequest<Users> = Users.fetchRequest()
-            request.predicate = NSPredicate(format: "id == \(user.id)")
-            let user = try self.context.fetch(request)
-            if isUpdateNotes {
-                self.view.endEditing(true)
-                user.first!.notes = notesTextView.text
-            } else {
-                user.first!.isSeen = true
-            }
-            do {
-                try self.context.save()
-            } catch {
-                
-            }
-        } catch {
-            print("Error \(error)")
-        }
+        UserManager.shared.updateUser(isUpdateNotes: true, notes: notesTextView.text, user: user)
+        self.view.endEditing(true)
     }
     
     func darkMode() {

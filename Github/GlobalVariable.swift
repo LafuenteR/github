@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct GlobalVariable {
     static var getUsersApi = "https://api.github.com/users?since="
@@ -39,5 +40,6 @@ struct Translation {
     static var na = "N/A"
     static var blog = "blog:"
     static var name = "name:"
+    static var empty = ""
 }
 

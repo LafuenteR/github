@@ -12,7 +12,7 @@ import SkeletonView
 class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate {
 
     var users:[Users]?
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = CoreDataStack.shared.mainContext
     var pagination = Int()
     var isPaginate = true
     @IBOutlet weak var UserTableView: UITableView!
@@ -34,7 +34,7 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
         UserTableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .gray), animation: nil, transition: .crossDissolve(0.25))
         
         do {
-            users = try context.fetch(Users.fetchRequest())
+            users = UserManager.shared.fetchUsers()
             pagination = users!.count == 0 ? users!.count : Int((users?.last?.id)!)
             
         } catch {
@@ -68,20 +68,15 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
                     let decoder = JSONDecoder()
                     if let userProfile = try? decoder.decode(Profile.self, from: data) {
                         print(userProfile)
-                        if !userExist(id: userProfile.id) {
-                            saveUser(profile: userProfile)
+                        if !UserManager.shared.userExist(id: userProfile.id) {
+                            UserManager.shared.createUser(profile: userProfile)
                         }
                     }
                 }
             }
             if user.id == thisUsers.last!.id {
                 pagination = user.id
-                do {
-                    users = try context.fetch(Users.fetchRequest())
-                    
-                } catch {
-                    print("Error \(error)")
-                }
+                users = UserManager.shared.fetchUsers()
                 makeTableViewScrollable()
             }
         }
@@ -100,20 +95,14 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
         DispatchQueue.main.async {
             if searchText.count > 0 {
                 do {
-                    let request: NSFetchRequest<Users> = Users.fetchRequest()
-                    request.predicate = NSPredicate(format: "(login CONTAINS[C] %@) OR (notes CONTAINS[C] %@)", searchText, searchText)
-                    self.users = try self.context.fetch(request)
+                    self.users = UserManager.shared.searchUsers(searchText: searchText)
                     self.UserTableView.reloadData()
                 } catch {
                     print("Error \(error)")
                 }
             } else {
-                do {
-                    self.users = try self.context.fetch(Users.fetchRequest())
-                    self.UserTableView.reloadData()
-                } catch {
-                    print("Error \(error)")
-                }
+                self.users = UserManager.shared.fetchUsers()
+                self.UserTableView.reloadData()
             }
         }
     }
@@ -121,7 +110,7 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
     override func viewWillAppear(_ animated: Bool) {
         do {
             if searchBar.text == "" {
-                users = try context.fetch(Users.fetchRequest())
+                users = UserManager.shared.fetchUsers()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                     self.UserTableView.stopSkeletonAnimation()
                     self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
@@ -138,47 +127,13 @@ class UserViewController: UIViewController, UITableViewDelegate, SkeletonTableVi
         return "UserCell"
     }
     
-    func saveUser(profile: Profile) {
-        let user = Users(context: self.context)
-        user.id = Int64(profile.id)
-        user.login = profile.login
-        user.avatar_url = profile.avatar_url
-        user.following = Int64(profile.following)
-        user.followers = Int64(profile.followers)
-        user.bio = profile.bio
-        user.name = profile.name
-        user.company = profile.company
-        user.blog = profile.blog
-        user.isSeen = false
-        do {
-            try self.context.save()
-        } catch {
-            print("Error \(error)")
-        }
-    }
-    
-    func userExist(id: Int) -> Bool {
-        do {
-            let request: NSFetchRequest<Users> = Users.fetchRequest()
-            request.predicate = NSPredicate(format: "id == \(id)")
-            let user = try self.context.fetch(request)
-            if user.count > 0 {
-                return true
-            } else {
-                return false
-            }
-        } catch {
-            print("Error \(error)")
-        }
-        return false
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position > ((UserTableView.contentSize.height + 50) - scrollView.frame.size.height) {
             print("isPaginate",isPaginate)
             if isPaginate {
                 isPaginate = false
+                pagination = Int((users?.last!.id)!)
                 self.UserTableView.tableFooterView = createSpinner()
 //                self.UserTableView.isScrollEnabled = false
                 getUsers()
