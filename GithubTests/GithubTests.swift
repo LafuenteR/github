@@ -26,13 +26,10 @@ class GithubTests: XCTestCase {
                 thisUsers = UserManager.shared.parseJson(json: data)
             }
         }
-        for user in thisUsers {
-            UserManager.shared.decodeUser(user: user)
-            if user.id == thisUsers.last!.id {
-                let lastUserID = Int(UserManager.shared.fetchUsers().last!.id)
-                XCTAssertEqual(lastUserID, thisUsers.last!.id)
-            }
-        }
+        let createThisUser = thisUsers.first
+        UserManager.shared.decodeUser(user: createThisUser!)
+        let lastUserID = Int(UserManager.shared.fetchUsers().last!.id)
+        XCTAssertEqual(lastUserID, thisUsers.first!.id)
     }
     
     func test_search_user() {
